@@ -1,7 +1,7 @@
 {
-  "name": "node-js-jwt-auth-mongodb",
+  "name": "smurf-book-meanstack",
   "version": "1.0.0",
-  "description": "Node.js + MongoDB: JWT Authentication & Authorization",
+  "description": "Mini social Media",
   "main": "server.js",
   "scripts": {
     "start": "node app"
