@@ -28,7 +28,7 @@ app.use(
 );
 
 const db = require("./app/models");
-const Role = db.role;
+const Rank = db.rank;
 
 db.mongoose
   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
@@ -43,6 +43,7 @@ db.mongoose
     console.error("Connection error", err);
     process.exit();
   });
+
 
 // simple route
 app.get("/", (req, res) => {
@@ -60,36 +61,36 @@ app.listen(PORT, () => {
 });
 
 function initial() {
-  Role.estimatedDocumentCount((err, count) => {
+  Rank.estimatedDocumentCount((err, count) => {
     if (!err && count === 0) {
-      new Role({
+      new Rank({
         name: "user"
       }).save(err => {
         if (err) {
           console.log("error", err);
         }
 
-        console.log("added 'user' to roles collection");
+        console.log("added 'user' to ranks collection");
       });
 
-      new Role({
+      new Rank({
         name: "moderator"
       }).save(err => {
         if (err) {
           console.log("error", err);
         }
 
-        console.log("added 'moderator' to roles collection");
+        console.log("added 'moderator' to ranks collection");
       });
 
-      new Role({
+      new Rank({
         name: "admin"
       }).save(err => {
         if (err) {
           console.log("error", err);
         }
 
-        console.log("added 'admin' to roles collection");
+        console.log("added 'admin' to ranks collection");
       });
     }
   });

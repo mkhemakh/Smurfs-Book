@@ -1,7 +1,7 @@
 const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.user;
-const Role = db.role;
+const Rank = db.rank;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
@@ -19,18 +19,18 @@ exports.signup = (req, res) => {
       return;
     }
 
-    if (req.body.roles) {
-      Role.find(
+    if (req.body.ranks) {
+      Rank.find(
         {
-          name: { $in: req.body.roles },
+          name: { $in: req.body.ranks },
         },
-        (err, roles) => {
+        (err, ranks) => {
           if (err) {
             res.status(500).send({ message: err });
             return;
           }
 
-          user.roles = roles.map((role) => role._id);
+          user.ranks = ranks.map((rank) => rank._id);
           user.save((err) => {
             if (err) {
               res.status(500).send({ message: err });
@@ -42,13 +42,13 @@ exports.signup = (req, res) => {
         }
       );
     } else {
-      Role.findOne({ name: "user" }, (err, role) => {
+      Rank.findOne({ name: "user" }, (err, rank) => {
         if (err) {
           res.status(500).send({ message: err });
           return;
         }
 
-        user.roles = [role._id];
+        user.ranks = [rank._id];
         user.save((err) => {
           if (err) {
             res.status(500).send({ message: err });
@@ -66,7 +66,7 @@ exports.signin = (req, res) => {
   User.findOne({
     username: req.body.username,
   })
-    .populate("roles", "-__v")
+    .populate("ranks", "-__v")
     .exec((err, user) => {
       if (err) {
         res.status(500).send({ message: err });
@@ -92,8 +92,8 @@ exports.signin = (req, res) => {
 
       var authorities = [];
 
-      for (let i = 0; i < user.roles.length; i++) {
-        authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
+      for (let i = 0; i < user.ranks.length; i++) {
+        authorities.push("RANK_" + user.ranks[i].name.toUpperCase());
       }
 
       req.session.token = token;
@@ -102,7 +102,8 @@ exports.signin = (req, res) => {
         id: user._id,
         username: user.username,
         email: user.email,
-        roles: authorities,
+        role: user.role,
+        ranks: authorities,
       });
     });
 };

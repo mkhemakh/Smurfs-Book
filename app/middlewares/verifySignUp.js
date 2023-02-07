@@ -1,5 +1,5 @@
 const db = require("../models");
-const ROLES = db.ROLES;
+const RANKS = db.RANKS;
 const User = db.user;
 
 checkDuplicateUsernameOrEmail = (req, res, next) => {
@@ -36,12 +36,12 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
   });
 };
 
-checkRolesExisted = (req, res, next) => {
-  if (req.body.roles) {
-    for (let i = 0; i < req.body.roles.length; i++) {
-      if (!ROLES.includes(req.body.roles[i])) {
+checkRanksExisted = (req, res, next) => {
+  if (req.body.ranks) {
+    for (let i = 0; i < req.body.ranks.length; i++) {
+      if (!RANKS.includes(req.body.ranks[i])) {
         res.status(400).send({
-          message: `Failed! Role ${req.body.roles[i]} does not exist!`
+          message: `Failed! Rank ${req.body.ranks[i]} does not exist!`
         });
         return;
       }
@@ -53,7 +53,7 @@ checkRolesExisted = (req, res, next) => {
 
 const verifySignUp = {
   checkDuplicateUsernameOrEmail,
-  checkRolesExisted
+  checkRanksExisted
 };
 
 module.exports = verifySignUp;
