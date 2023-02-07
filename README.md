@@ -5,4 +5,4 @@ npm install
 
 node server.js
 
-then 'npm install' in front-src and at last 'ng serve'.
+then 'npm install' in front-src and at last 'ng serve --port XXXX'.
