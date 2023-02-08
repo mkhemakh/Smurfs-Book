@@ -11,6 +11,7 @@ import { EventBusService } from './_shared/event-bus.service';
 })
 export class AppComponent {
   private ranks: string[] = [];
+  private friends: string[] = [];
   isLoggedIn = false;
   username?: string;
 
@@ -28,7 +29,7 @@ export class AppComponent {
     if (this.isLoggedIn) {
       const user = this.storageService.getUser();
       this.ranks = user.ranks;
-
+      this.friends = user.friends;
       this.username = user.username;
     }
 

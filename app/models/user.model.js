@@ -7,6 +7,7 @@ const User = mongoose.model(
     email: String,
     password: String,
     role : String,
+    friends: [{ type: String }],
     ranks: [
       {
         type: mongoose.Schema.Types.ObjectId,

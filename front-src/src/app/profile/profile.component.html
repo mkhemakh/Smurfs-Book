@@ -8,12 +8,19 @@
     <strong>Email:</strong>
     {{ currentUser.email }}
   </p>
-  <strong>Roles:</strong>
-  <ul>
-    <li *ngFor="let role of currentUser.roles">
-      {{ role }}
-    </li>
-  </ul>
+  <p>
+    <strong>Role:</strong>
+    {{ currentUser.role }}
+  </p>
+  <strong>Friends:</strong>
+  <div *ngFor="let user of users">
+    <ng-container *ngIf="user.username === currentUser.username">
+      <p *ngFor="let friend of user.friends">
+            {{ friend }}
+            <button (click)="delFriend(friend)">effacer</button>
+      </p>
+    </ng-container>
+  </div>
 </div>
 
 <ng-template #loggedOut>

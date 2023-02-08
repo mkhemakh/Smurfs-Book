@@ -52,14 +52,14 @@
         </button>
       </div>
       <div class="form-group">
-        <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger" role="alert">
+        <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger" rank="alert">
           Login failed: {{ errorMessage }}
         </div>
       </div>
     </form>
 
     <div class="alert alert-success" *ngIf="isLoggedIn">
-      Logged in as {{ roles }}.
+      Logged in as {{ ranks }}.
     </div>
   </div>
 </div>

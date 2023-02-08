@@ -1,3 +1,9 @@
-<ul>
-  <li *ngFor="let user of users">{{user.username}} - {{user.role}}</li>
-</ul>
+<div *ngFor="let user of users">
+  <ng-container *ngIf="user.username !== currentUser">
+    <h3>
+      {{user.username}}
+      <button *ngIf="loggedInUser && user.username !== currentUser" (click)="addFriend(user.username)">Ajouter comme ami</button>
+    </h3>
+    <p>{{user.role}}</p>
+  </ng-container>
+</div>

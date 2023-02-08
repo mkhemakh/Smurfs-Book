@@ -1,5 +1,5 @@
 export interface User {
   username: string;
-  role: string;
+  friends: string[];
 }
   

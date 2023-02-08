@@ -10,6 +10,7 @@ exports.signup = (req, res) => {
   const user = new User({
     username: req.body.username,
     email: req.body.email,
+    role: req.body.role,
     password: bcrypt.hashSync(req.body.password, 8),
   });
 
@@ -93,7 +94,7 @@ exports.signin = (req, res) => {
       var authorities = [];
 
       for (let i = 0; i < user.ranks.length; i++) {
-        authorities.push("RANK_" + user.ranks[i].name.toUpperCase());
+        authorities.push("_" + user.ranks[i].name.toUpperCase());
       }
 
       req.session.token = token;
@@ -103,6 +104,7 @@ exports.signin = (req, res) => {
         username: user.username,
         email: user.email,
         role: user.role,
+        friends: user.friends,
         ranks: authorities,
       });
     });
