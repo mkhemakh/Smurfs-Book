@@ -13,6 +13,7 @@ import { SchtroumpfItemComponent } from './schtroumpf-item/schtroumpf-item.compo
 
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
 import { BoardUserComponent } from './board-user/board-user.component';
+import { ButtonComponent } from './button/button.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BoardUserComponent } from './board-user/board-user.component';
     HomeComponent,
     ProfileComponent,
     SchtroumpfItemComponent,
-    BoardUserComponent
+    BoardUserComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,

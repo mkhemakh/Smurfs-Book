@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../_services/storage.service';
 import { UserService } from '../_services/user.service';
-
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +13,9 @@ export class ProfileComponent implements OnInit {
   users: any[] = [];
   friendslist: any[] = [];
   loggedInUser: any;
+  showModif: boolean = false;
+  private subject = new Subject<any>();
+  newrole: string = '';
 
   constructor(private storageService: StorageService, private userService: UserService) { }
 
@@ -25,8 +28,21 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  toggleModif(): void {
+    this.showModif = !this.showModif;
+    this.subject.next(this.showModif);
+  }
+
+  onToggle(): Observable<any> {
+    return this.subject.asObservable();
+  }
+
   reloadPage(): void {
     window.location.reload();
+  }
+
+  onSubmit():void {
+
   }
 
   ngOnInit(): void {

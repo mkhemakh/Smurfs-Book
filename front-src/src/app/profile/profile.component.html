@@ -11,7 +11,22 @@
   <p>
     <strong>Role:</strong>
     {{ currentUser.role }}
+    <app-button
+      color="{{ showModif ? 'red' : 'cyan' }}"
+      text="{{ showModif ? 'Annuler' : 'Modifier' }}"
+      (btnClick)="toggleModif()"
+    ></app-button>
   </p>
+  <form *ngIf="showModif" class="modif-form" (ngSubmit)="onSubmit()">
+    <label for="newrole">New Role</label>
+        <input
+          type="text"
+          class="modif-form"
+          name="newrole"
+          [(ngModel)]="newrole"
+        />
+        <input type="submit" value="Save role" class="btn btn-block" />
+  </form>
   <strong>Friends:</strong>
   <div *ngFor="let user of users">
     <ng-container *ngIf="user.username === currentUser.username">
