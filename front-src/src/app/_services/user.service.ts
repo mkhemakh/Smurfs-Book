@@ -31,4 +31,7 @@ export class UserService {
   delFriend(username: string, friendname: string) {
     return this.http.post<User>(API_URL + 'user/delFriend', { username, friendname });
   }
+  updateRole(username: string, role: string) {
+    return this.http.put<User>(API_URL + 'user/updateRole', { username, role });
+  }
 }

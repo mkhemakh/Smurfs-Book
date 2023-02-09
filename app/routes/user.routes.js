@@ -19,4 +19,6 @@ module.exports = function(app) {
   app.post("/api/user/addFriend", controller.addFriend);
 
   app.post("/api/user/delFriend", controller.delFriend);
+
+  app.put("/api/user/updateRole", controller.updateRole);
 };

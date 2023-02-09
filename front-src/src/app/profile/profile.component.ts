@@ -42,6 +42,16 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit():void {
+    if (!this.newrole) {
+      alert('Please add a role!');
+      return;
+    }
+    this.userService.updateRole(this.currentUser.username, this.newrole).subscribe(() => {
+      console.log('Role modified successfully');
+    }, error => {
+      console.error(error);
+    });
+    this.currentUser = this.storageService.getUser();
 
   }
 

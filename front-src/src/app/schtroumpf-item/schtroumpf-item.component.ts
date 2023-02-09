@@ -24,7 +24,6 @@ export class SchtroumpfItemComponent implements OnInit {
       }, error => {
         console.error(error);
       });
-
   }
 
   reloadPage(): void {

@@ -50,3 +50,17 @@ exports.addFriend = (req, res) => {
       });
     });
   };
+
+  exports.updateRole = (req, res) => {
+    User.findOne({ username: req.body.username }, (err, user) => {
+      if (err) return res.status(500).send(err);
+      if (!user) return res.status(404).send("User not found");
+  
+      user.role = req.body.role;
+  
+      user.save((err, updatedUser) => {
+        if (err) return res.status(500).send(err);
+        return res.send(updatedUser);
+      });
+    });
+  };
