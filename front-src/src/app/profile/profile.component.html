@@ -32,7 +32,10 @@
     <ng-container *ngIf="user.username === currentUser.username">
       <p *ngFor="let friend of user.friends">
             {{ friend }}
-            <button (click)="delFriend(friend)">effacer</button>
+            <app-button 
+            color="white"
+            text='x'
+            (btnClick)="delFriend(friend)"></app-button>
       </p>
     </ng-container>
   </div>

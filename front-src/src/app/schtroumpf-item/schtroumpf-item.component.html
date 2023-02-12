@@ -2,7 +2,11 @@
   <ng-container *ngIf="user.username !== currentUser">
     <h3>
       {{user.username}}
-      <button *ngIf="loggedInUser && user.username !== currentUser" (click)="addFriend(user.username)">Ajouter comme ami</button>
+      <app-button 
+      *ngIf="loggedInUser && user.username !== currentUser"
+      color="cyan"
+      text="Ajouter comme ami"
+      (btnClick)="addFriend(user.username)"></app-button>
     </h3>
     <p>{{user.role}}</p>
   </ng-container>
