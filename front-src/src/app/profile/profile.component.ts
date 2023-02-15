@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../_services/storage.service';
 import { UserService } from '../_services/user.service';
 import { Observable, Subject } from 'rxjs';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +18,17 @@ export class ProfileComponent implements OnInit {
   private subject = new Subject<any>();
   newrole: string = '';
 
-  constructor(private storageService: StorageService, private userService: UserService) { }
+  form: any = {
+    username: null,
+    email: null,
+    role: null,
+    password: null
+  };
+  isSuccessful = false;
+  isSignUpFailed = false;
+  errorMessage = '';
+
+  constructor(private storageService: StorageService, private userService: UserService, private authService: AuthService) { }
 
   delFriend(friendname: string) {
     this.userService.delFriend(this.currentUser.username, friendname).subscribe(() => {
@@ -27,6 +38,15 @@ export class ProfileComponent implements OnInit {
       console.error(error);
     });
   }
+
+  addFriend(friendname: string) {
+    this.userService.addFriend(this.currentUser.username, friendname).subscribe(() => {
+      console.log('Friend added successfully');
+      this.reloadPage();
+    }, error => {
+      console.error(error);
+    });
+}
 
   toggleModif(): void {
     this.showModif = !this.showModif;
@@ -41,7 +61,7 @@ export class ProfileComponent implements OnInit {
     window.location.reload();
   }
 
-  onSubmit():void {
+  onUpdateRole():void {
     if (!this.newrole) {
       alert('Please add a role!');
       return;
@@ -53,6 +73,23 @@ export class ProfileComponent implements OnInit {
     });
     this.currentUser = this.storageService.getUser();
 
+  }
+
+  onSubmit(): void {
+    const { username, email, role, password } = this.form;
+
+    this.authService.register(username, email, role, password).subscribe({
+      next: data => {
+        console.log(data);
+        this.isSuccessful = true;
+        this.isSignUpFailed = false;
+      },
+      error: err => {
+        this.errorMessage = err.error.message;
+        this.isSignUpFailed = true;
+      }
+    });
+    this.addFriend(username);
   }
 
   ngOnInit(): void {
