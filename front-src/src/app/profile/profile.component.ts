@@ -72,7 +72,6 @@ export class ProfileComponent implements OnInit {
       console.error(error);
     });
     this.currentUser = this.storageService.getUser();
-
   }
 
   onSubmit(): void {
